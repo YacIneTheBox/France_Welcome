@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>France Welcome — Foreign Student Guide</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div>
+      <h1>🇫🇷 France Welcome</h1>
+      <p class="subtitle">Plug-and-play guide for foreign students coming to France · in English</p>
+    </div>
+    <div class="badge">Verified Sept 2026 · rules change often — check official links</div>
+  </div>
+  <nav class="wrap tabs" id="tabs">
+    <button data-tab="dashboard" class="active">Dashboard</button>
+    <button data-tab="checklist">Checklist</button>
+    <button data-tab="budget">Budget</button>
+    <button data-tab="housing">Housing</button>
+    <button data-tab="guides">Guides</button>
+    <button data-tab="glossary">Glossary & Links</button>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<!-- DASHBOARD -->
+<section id="tab-dashboard" class="tab-panel active">
+  <div class="alert alert-warn"><strong>2026 critical changes:</strong>
+    1) Visa funds proof now <strong>€877.50/mo</strong> since Aug 1, 2026 (was €615).
+    2) CAF housing aid (APL) since July 1, 2026: <strong>only EU/EEA/Swiss + non-EU with scholarship or job</strong>. Most non-EU without job/scholarship are no longer eligible.
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h3>1. Pre-arrival (3–6 mo before)</h3><p>Campus France / Études en France, VLS-TS student visa (€99), housing proof for 3 months, funds proof, CVEC €105/yr, insurance.</p><button class="btn" data-goto="checklist">Open checklist</button></div>
+    <div class="card"><h3>2. Arrival week</h3><p>Validate VLS-TS on ANEF within 3 months, French address, timbre fiscal ~€100, bank RIB, SIM €10–25, home insurance €80–100/yr, transport pass.</p><button class="btn" data-goto="guides">Arrival guides</button></div>
+    <div class="card"><h3>3. First 3 months</h3><p>Sécu (Ameli), CAF if eligible, titre de séjour renewal (4→2 months before expiry), CROUS Resto U €3.30 / €1, jobs max 964h/yr (~20h/wk).</p><button class="btn" data-goto="budget">Estimate budget</button></div>
+  </div>
+
+  <div class="grid4 stats">
+    <div class="stat"><span>€877.50/mo</span><small>min. funds for visa</small></div>
+    <div class="stat"><span>€1,200–1,800</span><small>Paris monthly budget</small></div>
+    <div class="stat"><span>€700–1,100</span><small>Regional monthly budget</small></div>
+    <div class="stat"><span>964h/yr</span><small>max student work</small></div>
+  </div>
+
+  <div class="card">
+    <h3>How to use this app</h3>
+    <ol>
+      <li>Go to <strong>Checklist</strong>, pick your profile (EU / non-EU / Algerian, scholarship?, job?) — steps + CAF eligibility update automatically. Progress saves in your browser.</li>
+      <li>Go to <strong>Budget</strong>, pick city + housing — see if you meet the visa minimum.</li>
+      <li>Go to <strong>Housing</strong> to compare CROUS vs private vs colocation + Visale guarantor + scam check.</li>
+      <li>Go to <strong>Guides</strong> for click-by-click ANEF, CAF, Sécu, bank procedures with official links.</li>
+    </ol>
+    <p class="muted">No install, no account, no backend. All data stays on your device (localStorage).</p>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="tab-checklist" class="tab-panel">
+  <div class="card">
+    <h2>Your profile</h2>
+    <div class="formrow">
+      <label>Nationality <select id="profile-nat">
+        <option value="eu">EU / EEA / Switzerland</option>
+        <option value="non-eu" selected>Non-EU</option>
+        <option value="algerian">Algerian (special rules)</option>
+      </select></label>
+      <label><input type="checkbox" id="profile-scholarship"> I have a French social scholarship (CROUS / Eiffel / regional / gov)</label>
+      <label><input type="checkbox" id="profile-job"> I work / alternance at time of CAF request</label>
+      <label><input type="checkbox" id="profile-refugee"> Refugee / stateless</label>
+    </div>
+    <div id="caf-verdict" class="alert"></div>
+  </div>
+
+  <div class="card">
+    <div class="checklist-head">
+      <h2>Interactive checklist <span id="progress-label"></span></h2>
+      <div><button class="btn small" id="btn-print">Print</button> <button class="btn small secondary" id="btn-reset">Reset</button></div>
+    </div>
+    <div class="progressbar"><div id="progress-bar"></div></div>
+    <div class="formrow">
+      <label>Filter <select id="filter-phase"><option value="all">All phases</option><option value="pre">Pre-arrival</option><option value="arrival">Arrival week</option><option value="settled">First 3 months</option></select></label>
+    </div>
+    <div id="checklist"></div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="tab-budget" class="tab-panel">
+  <div class="grid2">
+    <div class="card">
+      <h2>Budget calculator</h2>
+      <div class="formgrid">
+        <label>City <select id="b-city">
+          <option value="paris">Paris / Île-de-France</option>
+          <option value="lyon">Lyon / Bordeaux</option>
+          <option value="regional" selected>Toulouse / Lille / Montpellier / Pau</option>
+        </select></label>
+        <label>Housing type <select id="b-housing">
+          <option value="crous">CROUS subsidised</option>
+          <option value="coloc" selected>Colocation (shared flat)</option>
+          <option value="private-res">Private student residence</option>
+          <option value="studio">Private studio</option>
+        </select></label>
+        <label>Food / groceries (€) <input type="number" id="b-food" value="220" min="100" max="600"></label>
+        <label>Transport (€) <input type="number" id="b-transport" value="30" min="0" max="150"></label>
+        <label>Phone + internet (€) <input type="number" id="b-phone" value="20" min="2" max="80"></label>
+        <label>Insurance + mutuelle (€) <input type="number" id="b-ins" value="25" min="0" max="100"></label>
+        <label>Leisure + other (€) <input type="number" id="b-leisure" value="80" min="0" max="400"></label>
+      </div>
+      <p class="muted">Presets: Resto U €3.30/meal (€1 if scholarship), Imagine R Paris ~€38/mo, Lyon TCL ~€35/mo, Toulouse ~€15/mo. Home insurance ~€7/mo, CVEC €105/yr (~€9/mo).</p>
+    </div>
+    <div class="card">
+      <h2>Result</h2>
+      <div class="bigtotal">Total: <span id="b-total">€0</span>/mo</div>
+      <div id="b-breakdown"></div>
+      <div id="b-verdict" class="alert"></div>
+      <h4>One-time admin to budget</h4>
+      <ul class="compact">
+        <li>Visa €99 + Campus France €50–250 + VLS-TS validation ~€100 + CVEC €105</li>
+        <li>Deposit 1–2 months rent + home insurance €80–100/yr + SNCF Avantage Jeune €49/yr (12–27y)</li>
+        <li>Total first-month extra: ~€470–530 admin + deposit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOUSING -->
+<section id="tab-housing" class="tab-panel">
+  <div class="card"><h2>Compare housing (2026 ranges)</h2>
+    <table class="table" id="housing-table">
+      <tr><th>Type</th><th>Paris</th><th>Lyon/Bordeaux</th><th>Regional</th><th>Notes</th></tr>
+      <tr><td><strong>CROUS</strong></td><td>€350–450</td><td>€200–350</td><td>€150–300</td><td>175k rooms, social criteria, apply early via messervices.etudiant.gouv.fr</td></tr>
+      <tr><td><strong>Private residence</strong></td><td>€800–1,200</td><td>€450–650</td><td>€380–560</td><td>Studea, Estudines, Studélites, Cardinal Campus. Easier for foreigners.</td></tr>
+      <tr><td><strong>Colocation</strong></td><td>€550–750</td><td>€350–530</td><td>€280–450</td><td>Leboncoin, SeLoger, Studapart, Jinka. Beware scams.</td></tr>
+      <tr><td><strong>Private studio</strong></td><td>€900–1,300+</td><td>€550–800</td><td>€450–680</td><td>Needs French guarantor or Visale. 3–4x rent income required.</td></tr>
+    </table>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Visale — free public guarantor</h3>
+      <ul><li>Open to students 18–30, any nationality. Apply on visale.fr <em>before</em> signing lease.</li><li>Accepted by most CROUS, residences, private landlords.</li><li>Alternatives: bank guarantee, Garantme/SmartGarant (paid ~3.5% rent).</li></ul>
+    </div>
+    <div class="card"><h3>Scam checklist</h3>
+      <ul><li>Never pay before visiting (or video visit) + written lease.</li><li>Never wire via Western Union / crypto. RIB + lease in same name.</li><li>Landlord must give quittance de loyer; no “hotel/Airbnb” for CAF.</li><li>Ask for attestation de loyer for CAF file.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDES -->
+<section id="tab-guides" class="tab-panel">
+  <div class="card"><h2>Step-by-step guides</h2><div id="guides"></div></div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="tab-glossary" class="tab-panel">
+  <div class="grid2">
+    <div class="card"><h2>FR → EN glossary</h2><input id="gloss-search" placeholder="Search e.g. titre, CAF, RIB..." class="input"><div id="glossary"></div></div>
+    <div class="card"><h2>Official links (always verify here)</h2>
+      <ul class="links">
+        <li><a href="https://france-visas.gouv.fr" target="_blank" rel="noopener">France-Visas — visa wizard + docs</a></li>
+        <li><a href="https://www.campusfrance.org/en" target="_blank" rel="noopener">Campus France — Études en France, validation, renewal checklists</a></li>
+        <li><a href="https://administration-etrangers-en-france.interieur.gouv.fr" target="_blank" rel="noopener">ANEF — validate VLS-TS / titre de séjour renewal</a></li>
+        <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2231?lang=en" target="_blank" rel="noopener">Service-Public — student residence permit rules</a></li>
+        <li><a href="https://www.caf.fr" target="_blank" rel="noopener">CAF — housing aid (P+8 temp ID, then Sécu number)</a></li>
+        <li><a href="https://www.ameli.fr" target="_blank" rel="noopener">Ameli — Sécu registration (étudiant étranger)</a></li>
+        <li><a href="https://www.visale.fr" target="_blank" rel="noopener">Visale — free guarantor</a></li>
+        <li><a href="https://www.messervices.etudiant.gouv.fr" target="_blank" rel="noopener">messervices.etudiant — CROUS housing + DSE scholarship + CVEC</a></li>
+        <li><a href="https://www.crous-paris.fr" target="_blank" rel="noopener">CROUS network (ex. Paris) — residences + Resto U</a></li>
+      </ul>
+      <div class="alert">Disclaimer: informational guide, not legal advice. Rules updated July/Aug 2026 — confirm on official sites and your Préfecture / university international desk.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="wrap footer muted">France Welcome · static app · your data never leaves your browser · <button class="linklike" id="btn-export">Export my checklist</button></footer>
+<script src="app.js"></script>
+</body>
+</html>
